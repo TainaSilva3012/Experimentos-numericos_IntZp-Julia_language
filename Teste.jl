@@ -1,6 +1,6 @@
 using Random
 
-include("funcoesauxiliares.jl")
+include("Funcoes_auxiliares_cifra_de_Hill.jl")
 Random.seed!(23)
 n = 7
 p = 113
