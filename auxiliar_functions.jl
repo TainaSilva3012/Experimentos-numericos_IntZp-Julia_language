@@ -1,6 +1,6 @@
 using Unicode
 using  LinearAlgebra
-include("Structure.jl")
+include("IntZp.jl")
 
 ## Codificação
 
