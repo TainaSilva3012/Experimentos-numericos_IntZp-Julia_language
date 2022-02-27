@@ -1,6 +1,6 @@
 using Random
 
-include("auxiliar_functions.jl")
+include("auxiliary_functions.jl")
 Random.seed!(23)
 n = 7
 p = 113
