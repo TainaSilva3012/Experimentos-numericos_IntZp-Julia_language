@@ -4,7 +4,7 @@ include("IntZp.jl")
 
 ## Codificação
 
-function lerarquivo(caminho) 
+function lerarquivo(caminho) #lê o arquivo dado
     pre_string = open(f->read(f, String), caminho)
     string = Unicode.normalize(pre_string) 
     return string
@@ -14,12 +14,38 @@ pre_tabela = lerarquivo("precodificacao.txt")
 TABELA = split(pre_tabela,"")
 
 function converte_char(letra) 
-    posicao = findall(x-> x==letra, TABELA)
-    return posicao[1] - 1
+    try 
+        posicao = findall(x-> x==letra, TABELA)
+        return posicao[1] - 1
+    catch erro
+        println("Erro em $letra // $(Int(only(letra)))")
+        return 111
+    end
+end
+
+function simplify()
+    mapa =  lerarquivo("simple.txt")
+    mapa_array = split(mapa, "\n")
+    dicionario = Dict("\t" => "", "\r" => "", Char(8221) => '"')
+    for linha in mapa_array
+        dupla = split(linha,"") 
+        dicionario[dupla[1]] = dupla[end]
+    end
+    dicionario
+end
+
+function  simplified(texto)
+    dicionario = simplify()
+    novo_texto = texto
+    for par in dicionario
+        novo_texto = replace(novo_texto, par)
+    end
+    return novo_texto
 end
 
 function converte_texto(texto)
-    texto_array = split(texto,"")
+    texto_simplificado = simplified(texto)
+    texto_array = split(texto_simplificado,"")
     array_convertido = converte_char.(texto_array)
     return array_convertido
 end
